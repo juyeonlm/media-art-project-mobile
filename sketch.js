@@ -1,4 +1,3 @@
-// ✅ Firebase 설정
 const firebaseConfig = {
   apiKey: "AIzaSyAIr3NTcE_RCe5l2m5EGLvIiQO0l9uvz_M",
   authDomain: "midea-art-project.firebaseapp.com",
@@ -55,16 +54,23 @@ function generateMemoryTexts(textArray) {
 class MemoryText {
   constructor(text) {
     this.text = text;
-    this.resetPosition();
+
+    // 위치를 비율로 저장
+    this.xRatio = random(0.05, 0.95);
+    this.yRatio = random(0.05, 0.95);
+
     this.size = random() < 0.1 ? random(60, 80) : random(10, 22);
     this.color = random() < 0.5 ? color(255) : color(255, 0, 0);
     this.alpha = 255;
     this.hiddenTime = null;
   }
 
-  resetPosition() {
-    this.x = random(30, windowWidth - 30);
-    this.y = random(30, windowHeight - 30);
+  get x() {
+    return this.xRatio * width;
+  }
+
+  get y() {
+    return this.yRatio * height;
   }
 
   update() {
@@ -104,10 +110,7 @@ function touchMoved() {
   return false;
 }
 
-// ✅ 창 크기 변경 시 캔버스와 위치 재조정
+// ✅ 창 크기 변경 시 자동 적용됨 (비율 기반이기 때문에 따로 처리 불필요)
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-  for (let m of memoryTexts) {
-    m.resetPosition(); // 텍스트 위치도 다시 계산
-  }
 }
