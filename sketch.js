@@ -1,3 +1,4 @@
+// ✅ Firebase 설정
 const firebaseConfig = {
   apiKey: "AIzaSyAIr3NTcE_RCe5l2m5EGLvIiQO0l9uvz_M",
   authDomain: "midea-art-project.firebaseapp.com",
@@ -8,7 +9,6 @@ const firebaseConfig = {
   appId: "1:826265566034:web:1e133a6e7145e59339588b",
   measurementId: "G-K8NFG4CEES"
 };
-
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
@@ -54,23 +54,12 @@ function generateMemoryTexts(textArray) {
 class MemoryText {
   constructor(text) {
     this.text = text;
-
-    // 위치를 비율로 저장
     this.xRatio = random(0.05, 0.95);
     this.yRatio = random(0.05, 0.95);
-
     this.size = random() < 0.1 ? random(60, 80) : random(10, 22);
     this.color = random() < 0.5 ? color(255) : color(255, 0, 0);
     this.alpha = 255;
     this.hiddenTime = null;
-  }
-
-  get x() {
-    return this.xRatio * width;
-  }
-
-  get y() {
-    return this.yRatio * height;
   }
 
   update() {
@@ -84,15 +73,19 @@ class MemoryText {
   }
 
   display() {
+    const x = this.xRatio * width;
+    const y = this.yRatio * height;
     if (this.alpha > 0) {
       fill(red(this.color), green(this.color), blue(this.color), this.alpha);
       textSize(this.size);
-      text(this.text, this.x, this.y);
+      text(this.text, x, y);
     }
   }
 
   isTouched(mx, my) {
-    return dist(mx, my, this.x, this.y) < this.size * 0.8;
+    const x = this.xRatio * width;
+    const y = this.yRatio * height;
+    return dist(mx, my, x, y) < this.size * 0.8;
   }
 
   hide() {
@@ -110,7 +103,6 @@ function touchMoved() {
   return false;
 }
 
-// ✅ 창 크기 변경 시 자동 적용됨 (비율 기반이기 때문에 따로 처리 불필요)
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
