@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <!-- ✅ Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
@@ -11,17 +11,22 @@
     <!-- ✅ p5.js -->
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.5/lib/p5.js"></script>
 
-    <!-- ✅ 기본 스타일 초기화: 전체 화면, 여백 제거 -->
+    <!-- ✅ 완전한 여백 제거 및 캔버스 정렬 -->
     <style>
       html, body {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
         overflow: hidden;
-        height: 100%;
         background: black;
+        width: 100vw;
+        height: 100vh;
       }
       canvas {
         display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
       }
     </style>
 
