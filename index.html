@@ -4,12 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Firebase SDK -->
+    <!-- ✅ Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
-    <!-- p5.js -->
+    <!-- ✅ p5.js -->
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.5/lib/p5.js"></script>
+
+    <!-- ✅ 기본 스타일 초기화: 전체 화면, 여백 제거 -->
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100%;
+        background: black;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+
+    <title>Memory Display</title>
   </head>
   <body>
     <script src="sketch.js"></script>
