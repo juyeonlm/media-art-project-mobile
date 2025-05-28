@@ -9,10 +9,12 @@ const firebaseConfig = {
   appId: "1:826265566034:web:1e133a6e7145e59339588b",
   measurementId: "G-K8NFG4CEES"
 };
+
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 let memoryTexts = [];
+let latestTextArray = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -20,16 +22,15 @@ function setup() {
   noStroke();
   background(0);
 
-  // 새로고침 시 Firebase 비우기
   const ref = database.ref("memories");
-  ref.remove();
+  ref.remove(); // 새로고침 시 초기화
 
-  // 실시간 데이터 수신
   ref.limitToLast(20).on("value", (snapshot) => {
     let newTexts = [];
     snapshot.forEach((child) => {
       newTexts.push(child.val().text);
     });
+    latestTextArray = newTexts;
     generateMemoryTexts(newTexts);
   });
 }
@@ -54,12 +55,16 @@ function generateMemoryTexts(textArray) {
 class MemoryText {
   constructor(text) {
     this.text = text;
-    this.x = random(30, width - 30);
-    this.y = random(30, height - 30);
+    this.resetPosition();
     this.size = random() < 0.1 ? random(60, 80) : random(10, 22);
     this.color = random() < 0.5 ? color(255) : color(255, 0, 0);
     this.alpha = 255;
     this.hiddenTime = null;
+  }
+
+  resetPosition() {
+    this.x = random(30, windowWidth - 30);
+    this.y = random(30, windowHeight - 30);
   }
 
   update() {
@@ -97,4 +102,12 @@ function touchMoved() {
     }
   }
   return false;
+}
+
+// ✅ 창 크기 변경 시 캔버스와 위치 재조정
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  for (let m of memoryTexts) {
+    m.resetPosition(); // 텍스트 위치도 다시 계산
+  }
 }
