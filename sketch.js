@@ -13,7 +13,6 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 let memoryTexts = [];
-let latestTextArray = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -29,7 +28,6 @@ function setup() {
     snapshot.forEach((child) => {
       newTexts.push(child.val().text);
     });
-    latestTextArray = newTexts;
     generateMemoryTexts(newTexts);
   });
 }
@@ -42,6 +40,7 @@ function draw() {
   }
 }
 
+// ✅ 비율 기반으로 텍스트 생성
 function generateMemoryTexts(textArray) {
   memoryTexts = [];
   for (let text of textArray) {
@@ -51,15 +50,24 @@ function generateMemoryTexts(textArray) {
   }
 }
 
+// ✅ 메모리 텍스트 클래스
 class MemoryText {
   constructor(text) {
     this.text = text;
-    this.xRatio = random(0.05, 0.95);
+    this.xRatio = random(0.05, 0.95); // 화면 비율로 저장
     this.yRatio = random(0.05, 0.95);
     this.size = random() < 0.1 ? random(60, 80) : random(10, 22);
     this.color = random() < 0.5 ? color(255) : color(255, 0, 0);
     this.alpha = 255;
     this.hiddenTime = null;
+  }
+
+  get x() {
+    return this.xRatio * width;
+  }
+
+  get y() {
+    return this.yRatio * height;
   }
 
   update() {
@@ -73,19 +81,15 @@ class MemoryText {
   }
 
   display() {
-    const x = this.xRatio * width;
-    const y = this.yRatio * height;
     if (this.alpha > 0) {
       fill(red(this.color), green(this.color), blue(this.color), this.alpha);
       textSize(this.size);
-      text(this.text, x, y);
+      text(this.text, this.x, this.y);
     }
   }
 
   isTouched(mx, my) {
-    const x = this.xRatio * width;
-    const y = this.yRatio * height;
-    return dist(mx, my, x, y) < this.size * 0.8;
+    return dist(mx, my, this.x, this.y) < this.size * 0.8;
   }
 
   hide() {
@@ -94,6 +98,7 @@ class MemoryText {
   }
 }
 
+// ✅ 터치 시 텍스트 사라졌다가 다시 나타나기
 function touchMoved() {
   for (let m of memoryTexts) {
     if (m.isTouched(mouseX, mouseY)) {
@@ -103,6 +108,7 @@ function touchMoved() {
   return false;
 }
 
+// ✅ 창 크기 변경 시 캔버스 리사이징 (텍스트도 자동 비율로 대응됨)
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
