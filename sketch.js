@@ -62,7 +62,7 @@ class MemoryText {
     this.text = text;
     this.relX = random(0.05, 0.95);
     this.relY = random(0.05, 0.95);
-    this.size = random() < 0.1 ? random(60, 80) : random(10, 22);
+    this.size = random() < 0.2 ? random(64, 96) : random(28, 48);
     this.color = color(random(255), random(255), random(255));
     this.weight = random([100, 300, 400, 500, 700, 900]);
     this.alpha = 255;
