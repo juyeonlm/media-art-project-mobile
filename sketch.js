@@ -51,7 +51,7 @@ function windowResized() {
 function generateMemoryTexts(textArray) {
   memoryTexts = [];
   for (let text of textArray) {
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 25; i++) {
       memoryTexts.push(new MemoryText(text));
     }
   }
@@ -62,7 +62,8 @@ class MemoryText {
     this.text = text;
     this.relX = random(0.05, 0.95);
     this.relY = random(0.05, 0.95);
-    this.size = random() < 0.2 ? random(64, 96) : random(28, 48);
+    this.size = random() < 0.2 ? random(69, 120) : random(38, 68);
+
     this.color = color(random(255), random(255), random(255));
     this.weight = random([100, 300, 400, 500, 700, 900]);
     this.alpha = 255;
