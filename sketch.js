@@ -18,9 +18,10 @@ function setup() {
   textAlign(CENTER, CENTER);
   noStroke();
   background(0);
+  textFont("Noto Sans KR");
 
   const ref = database.ref("memories");
-  ref.remove(); // 새로고침 시 초기화
+  ref.remove();
 
   ref.limitToLast(20).on("value", (snapshot) => {
     let newTexts = [];
@@ -44,7 +45,7 @@ function windowResized() {
   for (let m of memoryTexts) {
     m.recalculatePosition();
   }
-  background(0); // Safari 대응: 강제 갱신
+  background(0);
 }
 
 function generateMemoryTexts(textArray) {
@@ -59,10 +60,11 @@ function generateMemoryTexts(textArray) {
 class MemoryText {
   constructor(text) {
     this.text = text;
-    this.relX = random(0.05, 0.95); // 상대 위치
+    this.relX = random(0.05, 0.95);
     this.relY = random(0.05, 0.95);
     this.size = random() < 0.1 ? random(60, 80) : random(10, 22);
-    this.color = color(random(255), random(255), random(255));  // ✅ 다채로운 색상 랜덤 적용
+    this.color = color(random(255), random(255), random(255));
+    this.weight = random([100, 300, 400, 500, 700, 900]);
     this.alpha = 255;
     this.hiddenTime = null;
     this.recalculatePosition();
@@ -85,9 +87,12 @@ class MemoryText {
 
   display() {
     if (this.alpha > 0) {
+      push();
       fill(red(this.color), green(this.color), blue(this.color), this.alpha);
       textSize(this.size);
+      drawingContext.font = `${this.weight} ${this.size}px 'Noto Sans KR'`;
       text(this.text, this.x, this.y);
+      pop();
     }
   }
 

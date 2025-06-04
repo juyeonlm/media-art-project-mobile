@@ -1,49 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta 
-      name="viewport" 
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Memory Project</title>
 
-    <title>Memory Display</title>
+  <!-- ✅ p5.js -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.5/lib/p5.js"></script>
 
-    <!-- ✅ Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <!-- ✅ Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
-    <!-- ✅ p5.js -->
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.5/lib/p5.js"></script>
+  <!-- ✅ Google Fonts: Noto Sans KR (전체 weight 포함, 올바르게 닫힘) -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
-    <!-- ✅ 스타일: 사파리 대응 포함 -->
-    <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        background: black;
-        overflow: hidden;
-        position: fixed;
-        top: 0;
-        left: 0;
-        box-sizing: border-box;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        touch-action: none;
-      }
-
-      canvas {
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-    </style>
-  </head>
-
-  <body>
-    <script src="sketch.js"></script>
-  </body>
+  <!-- ✅ 완전한 여백 제거 및 캔버스 정렬 -->
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      overflow: hidden;
+      background: black;
+      width: 100vw;
+      height: 100vh;
+    }
+    canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <script src="sketch.js"></script>
+</body>
 </html>
