@@ -51,7 +51,7 @@ function windowResized() {
 function generateMemoryTexts(textArray) {
   memoryTexts = [];
   for (let text of textArray) {
-    for (let i = 0; i < 35; i++) {
+    for (let i = 0; i < 25; i++) {
       memoryTexts.push(new MemoryText(text));
     }
   }
