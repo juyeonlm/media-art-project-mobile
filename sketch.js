@@ -62,7 +62,7 @@ class MemoryText {
     this.relX = random(0.05, 0.95); // 상대 위치
     this.relY = random(0.05, 0.95);
     this.size = random() < 0.1 ? random(60, 80) : random(10, 22);
-    this.color = random() < 0.5 ? color(255) : color(255, 0, 0);
+    this.color = color(random(255), random(255), random(255));  // ✅ 다채로운 색상 랜덤 적용
     this.alpha = 255;
     this.hiddenTime = null;
     this.recalculatePosition();
